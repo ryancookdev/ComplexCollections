@@ -1,6 +1,5 @@
 package software.ryancook.complexcollections;
 
-import java.security.InvalidParameterException;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -21,13 +20,13 @@ public class MultiLevelQueue<E>
      * Adds a new level with an empty queue.
      *
      * @param levelName  the name to be used as the level key, not null
-     * @throws InvalidParameterException if levelName is null
+     * @throws NullPointerException if levelName is null
      * @throws DuplicateLevelException if levelName is not unique
      */
     public void addLevel(String levelName)
     {
         if (levelName == null) {
-            throw new InvalidParameterException();
+            throw new NullPointerException("Level name cannot be null.");
         }
         checkIfLevelNameIsUnique(levelName);
         levels.put(levelName, new LinkedList<>());
