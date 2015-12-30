@@ -41,10 +41,10 @@ public class MultiLevelQueueTest
         moves.next();
         moves.next();
 
-        String lastMoveInFirstLevel = moves.next();
+        final String lastMoveInFirstLevel = moves.next();
         assertEquals("a1-a4", lastMoveInFirstLevel);
 
-        String firstMoveInSecondLevel = moves.next();
+        final String firstMoveInSecondLevel = moves.next();
         assertEquals("a1-b2", firstMoveInSecondLevel);
     }
 
@@ -53,12 +53,12 @@ public class MultiLevelQueueTest
     {
         setMultiLevelMoves();
 
-        String lastMoveInFirstLevel = moves.next();
+        final String lastMoveInFirstLevel = moves.next();
         assertEquals("a1-a2", lastMoveInFirstLevel);
 
         moves.removeLevel();
 
-        String firstMoveInSecondLevel = moves.next();
+        final String firstMoveInSecondLevel = moves.next();
         assertEquals("a1-b2", firstMoveInSecondLevel);
     }
 
@@ -72,12 +72,12 @@ public class MultiLevelQueueTest
 
         assertTrue(moves.size() > 0);
 
-        String lastLevelLastMove = moves.next();
+        final String lastLevelLastMove = moves.next();
         assertEquals("a1-d1", lastLevelLastMove);
 
         assertFalse(moves.size() > 0);
 
-        String nullMove = moves.next();
+        final String nullMove = moves.next();
         assertEquals(null, nullMove);
     }
 

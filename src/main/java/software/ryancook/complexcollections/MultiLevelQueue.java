@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 public class MultiLevelQueue<E>
 {
     private int size;
-    private TreeMap<String, Queue<E>> levels;
+    final private TreeMap<String, Queue<E>> levels;
 
     /**
      * Create a new Multi Level Queue
@@ -23,7 +23,7 @@ public class MultiLevelQueue<E>
      * @throws NullPointerException if levelName is null
      * @throws DuplicateLevelException if levelName is not unique
      */
-    public void addLevel(String levelName)
+    public void addLevel(final String levelName)
     {
         if (levelName == null) {
             throw new NullPointerException("Level name cannot be null.");
@@ -32,7 +32,7 @@ public class MultiLevelQueue<E>
         levels.put(levelName, new LinkedList<>());
     }
 
-    private void checkIfLevelNameIsUnique(String levelName)
+    private void checkIfLevelNameIsUnique(final String levelName)
     {
         if (levels.containsKey(levelName)) {
             throw new DuplicateLevelException();
@@ -49,14 +49,14 @@ public class MultiLevelQueue<E>
 
     private void clearLevelAndDecreaseCount()
     {
-        Queue<E> level = getHeadLevel();
+        final Queue<E> level = getHeadLevel();
         size -= level.size();
         level.clear();
     }
 
     private Queue<E> getHeadLevel()
     {
-        Entry<String, Queue<E>> firstEntry = levels.firstEntry();
+        final Entry<String, Queue<E>> firstEntry = levels.firstEntry();
         if (firstEntry == null) {
             throw new LevelNotFoundException();
         }
@@ -66,18 +66,18 @@ public class MultiLevelQueue<E>
     /**
      * Adds an object to the queue at the current level.
      *
-     * @param obj
+     * @param obj Element to be added
      */
-    public void add(E obj)
+    public void add(final E obj)
     {
-        Queue<E> level = getTailLevel();
+        final Queue<E> level = getTailLevel();
         level.add(obj);
         size++;
     }
 
     private Queue<E> getTailLevel()
     {
-        Entry<String, Queue<E>> lastEntry = levels.lastEntry();
+        final Entry<String, Queue<E>> lastEntry = levels.lastEntry();
         if (lastEntry == null) {
             throw new LevelNotFoundException();
         }
@@ -87,7 +87,7 @@ public class MultiLevelQueue<E>
     /**
      * Removes the first element from the first queue and returns that element.
      *
-     * @return
+     * @return First element from the first queue
      */
     public E next()
     {
@@ -100,7 +100,7 @@ public class MultiLevelQueue<E>
 
     private E popNextObject()
     {
-        Queue<E> level = getHeadLevel();
+        final Queue<E> level = getHeadLevel();
         if (level.size() == 0) {
             return null;
         }
@@ -111,7 +111,7 @@ public class MultiLevelQueue<E>
     private void removeLevelIfEmpty()
     {
         while (levels.size() > 0) {
-            Entry<String, Queue<E>> levelEntry = levels.firstEntry();
+            final Entry<String, Queue<E>> levelEntry = levels.firstEntry();
             if (levelEntry.getValue().size() == 0) {
                 levels.remove(levelEntry.getKey());
                 continue;
@@ -128,7 +128,7 @@ public class MultiLevelQueue<E>
     /**
      * Returns the total number of elements in the multilevel queue.
      *
-     * @return
+     * @return Size of the multilevel queue
      */
     public int size()
     {
